@@ -93,6 +93,7 @@ Primer evento crítico detectado: 503
 Grabación realizada con asciinema:
 
  (https://asciinema.org/a/M3MLNRZdYEfchq2T)
+  https://asciinema.org/a/7uGggZ24rXNjCMCr
 
 
 ---
