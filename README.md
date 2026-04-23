@@ -1,165 +1,162 @@
-
-# Práctica 1
-
-## Implementación de un Mini Cloud Log Analyzer en ARM64
-
-**Modalidad:** Individual
-**Entorno de trabajo:** AWS Ubuntu ARM64 + GitHub Classroom
-**Lenguaje:** ARM64 Assembly (GNU Assembler) + Bash + GNU Make
+```
+╔══════════════════════════════════════════════════════╗
+║   ☁️ MINI CLOUD LOG ANALYZER - ARM64 SYSTEM ⚙️      ║
+╠══════════════════════════════════════════════════════╣
+║ 👤 Fidel Muñoz                                      ║
+║ 🆔 22211619                                         ║
+║ 🕓 4:00 PM - 5:00 PM                                ║
+║ 🏫 TECNM Campus ITT                                 ║
+║ 📅 2026                                             ║
+╠══════════════════════════════════════════════════════╣
+║ Analizador de logs en ARM64 que detecta eventos     ║
+║ críticos en códigos HTTP desde stdin.               ║
+╚══════════════════════════════════════════════════════╝
+```
+# 📊 Práctica 1 - Mini Cloud Log Analyzer en ARM64
 
 ---
 
-## Introducción
+## 👤 Autor
 
-Los sistemas modernos de cómputo en la nube generan continuamente registros (*logs*) que permiten monitorear el estado de servicios, detectar fallas y activar alertas ante eventos críticos.
+**Fidel Muñoz**  
+**Matrícula:** 22211619  
+**Horario:** 4:00 PM - 5:00 PM  
 
-En esta práctica se desarrollará un módulo simplificado de análisis de logs, implementado en **ARM64 Assembly**, inspirado en tareas reales de monitoreo utilizadas en sistemas cloud, observabilidad y administración de infraestructura.
+---
 
-El programa procesará códigos de estado HTTP suministrados mediante entrada estándar (stdin):
+## 🧾 Descripción
 
-```bash id="y1gcmc"
-cat logs.txt | ./analyzer
+En esta práctica se implementó un analizador de logs en lenguaje ensamblador ARM64, capaz de procesar códigos de estado HTTP leídos desde la entrada estándar (stdin).
+
+El programa analiza los códigos y permite detectar condiciones específicas dependiendo de la variante asignada.
+
+---
+
+## ⚙️ Variante implementada
+
+### 🔴 Variante C: Detección del primer evento crítico (503)
+
+El objetivo de esta variante es detectar la primera aparición del código HTTP **503 (Service Unavailable)** dentro del flujo de entrada.
+
+---
+
+## 🧠 Lógica implementada
+
+El programa funciona de la siguiente manera:
+
+1. Lee la entrada estándar (`stdin`) en bloques de datos.
+2. Procesa cada byte leído.
+3. Si el byte es un dígito, construye un número entero acumulado.
+4. Cuando encuentra un salto de línea (`\n`), interpreta el número completo como un código HTTP.
+5. Se compara el número con el valor **503**.
+6. Si el valor es 503:
+
+   * Se imprime un mensaje indicando el evento crítico.
+   * El programa termina inmediatamente.
+
+7. Si no es 503:
+
+   * Continúa procesando la entrada normalmente.
+
+---
+
+## 🧩 Implementación en ARM64
+
+La detección del evento crítico se implementó utilizando:
+
+* `cmp` → para comparar el valor leído con 503  
+* `b.ne` → para continuar si no es igual  
+* `b` → para terminar la ejecución cuando se detecta el evento  
+* `write syscall` → para imprimir el mensaje en pantalla  
+
+### 🔍 Fragmento clave:
+
+```asm
+cmp x22, #503
+b.ne continuar
+
+adrp x0, msg_critico
+add x0, x0, :lo12:msg_critico
+bl write_cstr
+
+b salida_ok
 ```
 
 ---
 
-## Objetivo general
+## 🛠️ Compilación
 
-Diseñar e implementar, en lenguaje ensamblador ARM64, una solución para procesar registros de eventos y detectar condiciones definidas según la variante asignada.
-
----
-
-## Objetivos específicos
-
-El estudiante aplicará:
-
-* programación en ARM64 bajo Linux
-* manejo de registros
-* direccionamiento y acceso a memoria
-* instrucciones de comparación
-* estructuras iterativas en ensamblador
-* saltos condicionales
-* uso de syscalls Linux
-* compilación con GNU Make
-* control de versiones con GitHub Classroom
-
-Estos temas se alinean con contenidos clásicos de flujo de control, herramientas GNU, manejo de datos y convenciones de programación en ensamblador.   
-
----
-
-## Material proporcionado
-
-Se entregará un repositorio preconfigurado que contiene:
-
-* plantilla base en ARM64
-* archivo `Makefile`
-* script Bash de ejecución
-* archivo de datos (`logs.txt`)
-* pruebas iniciales
-* secciones marcadas con `TODO`
-
-El estudiante deberá completar la lógica correspondiente.
-
----
-
-## Variantes de la práctica
-
-### Variante A
-
-Contabilizar:
-
-* respuestas exitosas (2xx)
-* errores del cliente (4xx)
-* errores del servidor (5xx)
-
----
-
-### Variante B
-
-Determinar el código de estado más frecuente.
-
----
-
-### Variante C
-
-Detectar el primer evento crítico (503).
-
----
-
-### Variante D
-
-Detectar tres errores consecutivos.
-
----
-
-### Variante E
-
-Calcular índice de salud:
-
-```text id="2u4vvx"
-Health Score = 100 - (errores × 10)
-```
-
----
-
-## Compilación
-
-```bash id="bmubtb"
+```bash
 make
 ```
 
 ---
 
-## Ejecución
+## ▶️ Ejecución
 
-```bash id="gcqlf2"
-cat logs.txt | ./analyzer
+```bash
+cat data/logs_*.txt | ./run.sh
 ```
 
 ---
 
-## Entregables
+## 🧪 Ejemplo de salida
 
-Cada estudiante deberá entregar en su repositorio:
-
-* archivo fuente ARM64 funcional
-* solución implementada
-* README explicando diseño y lógica utilizada
-* evidencia de ejecución
-* commits realizados en GitHub Classroom
+```
+Primer evento crítico detectado: 503
+```
 
 ---
 
-## Criterios de evaluación
+## 🎥 Evidencia de ejecución
 
-| Criterio                    | Ponderación |
-| --------------------------- | ----------- |
-| Compilación correcta        | 20%         |
-| Correctitud de la solución  | 35%         |
-| Uso adecuado de ARM64       | 25%         |
-| Documentación y comentarios | 10%         |
-| Evidencia de pruebas        | 10%         |
+Grabación realizada con asciinema:
+
+https://asciinema.org/a/M3MLNRZdYEfchq2T  
+https://asciinema.org/a/7uGggZ24rXNjCMCr  
 
 ---
 
-## Restricciones
+## 🧪 Pruebas
 
-No está permitido:
+Se ejecutaron pruebas para validar el correcto funcionamiento del programa:
 
-* resolver la lógica en C
-* resolver la lógica en Python
-* modificar la variante asignada
-* omitir el uso de ARM64 Assembly
-
----
-
-## Competencia a desarrollar
-
-Comprender cómo un problema de procesamiento de datos es implementado a nivel máquina mediante instrucciones ARM64.
+```bash
+make test
+```
 
 ---
 
-## Nota
+## 📁 Estructura del proyecto
 
-Aunque este problema puede resolverse fácilmente en lenguajes de alto nivel, el propósito de la práctica es implementar **cómo lo resolvería la arquitectura**, no únicamente obtener el resultado.
+```
+cloud-log-analyzer/
+│
+├── src/
+│   └── analyzer.s
+├── data/
+│   └── logs_*.txt
+├── tests/
+├── run.sh
+├── Makefile
+└── README.md
+```
 
+---
+
+## ✅ Restricciones cumplidas
+
+✔ Implementación en ARM64 Assembly  
+✔ Uso exclusivo de syscalls Linux  
+✔ No se utilizó C ni Python  
+✔ Se respetó la variante asignada  
+
+---
+
+## 🎯 Conclusión
+
+Esta práctica permitió comprender cómo procesar datos a bajo nivel utilizando instrucciones ARM64, implementando lógica de análisis de eventos directamente sobre registros y memoria.
+
+Se logró detectar correctamente el primer evento crítico dentro del flujo de datos, replicando un comportamiento típico de sistemas de monitoreo en la nube.
+
+---
