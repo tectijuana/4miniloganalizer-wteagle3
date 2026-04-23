@@ -1,17 +1,17 @@
-╔══════════════════════════════════════════════════════════════════════╗
-║        ☁️⚙️  MINI CLOUD LOG ANALYZER - ARM64 SYSTEM  ⚙️☁️          ║
-╠══════════════════════════════════════════════════════════════════════╣
-║ 🏫 Asignatura : Lenguajes de Interfaz - TECNM Campus ITT            ║
-║ 👤 Alumno     : Fidel Muñoz                                        ║
-║ 🆔 Matrícula  : 22211619                                           ║
-║ 🕓 Horario    : 4:00 PM - 5:00 PM                                  ║
-║ 📅 Fecha      : 2026                                               ║
-║                                                                      ║
-║ 🧠 Descripción:                                                      ║
-║ Analizador de logs en ARM64 que detecta eventos críticos             ║
-║ en códigos HTTP desde la entrada estándar (stdin).                   ║
-╚══════════════════════════════════════════════════════════════════════╝
-
+```
+╔══════════════════════════════════════════════════════╗
+║   ☁️ MINI CLOUD LOG ANALYZER - ARM64 SYSTEM ⚙️      ║
+╠══════════════════════════════════════════════════════╣
+║ 👤 Fidel Muñoz                                      ║
+║ 🆔 22211619                                         ║
+║ 🕓 4:00 PM - 5:00 PM                                ║
+║ 🏫 TECNM Campus ITT                                 ║
+║ 📅 2026                                             ║
+╠══════════════════════════════════════════════════════╣
+║ Analizador de logs en ARM64 que detecta eventos     ║
+║ críticos en códigos HTTP desde stdin.               ║
+╚══════════════════════════════════════════════════════╝
+```
 # 📊 Práctica 1 - Mini Cloud Log Analyzer en ARM64
 
 ---
