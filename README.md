@@ -1,12 +1,30 @@
-# Práctica 1 - Mini Cloud Log Analyzer en ARM64
+╔══════════════════════════════════════════════════════════════════════╗
+║        ☁️⚙️  MINI CLOUD LOG ANALYZER - ARM64 SYSTEM  ⚙️☁️          ║
+╠══════════════════════════════════════════════════════════════════════╣
+║ 🏫 Asignatura : Lenguajes de Interfaz - TECNM Campus ITT            ║
+║ 👤 Alumno     : Fidel Muñoz                                        ║
+║ 🆔 Matrícula  : 22211619                                           ║
+║ 🕓 Horario    : 4:00 PM - 5:00 PM                                  ║
+║ 📅 Fecha      : 2026                                               ║
+║                                                                      ║
+║ 🧠 Descripción:                                                      ║
+║ Analizador de logs en ARM64 que detecta eventos críticos             ║
+║ en códigos HTTP desde la entrada estándar (stdin).                   ║
+╚══════════════════════════════════════════════════════════════════════╝
 
-##  Autor
-
-Fidel Muñoz 22211619
+# 📊 Práctica 1 - Mini Cloud Log Analyzer en ARM64
 
 ---
 
-##  Descripción
+## 👤 Autor
+
+**Fidel Muñoz**  
+**Matrícula:** 22211619  
+**Horario:** 4:00 PM - 5:00 PM  
+
+---
+
+## 🧾 Descripción
 
 En esta práctica se implementó un analizador de logs en lenguaje ensamblador ARM64, capaz de procesar códigos de estado HTTP leídos desde la entrada estándar (stdin).
 
@@ -14,15 +32,15 @@ El programa analiza los códigos y permite detectar condiciones específicas dep
 
 ---
 
-##  Variante implementada
+## ⚙️ Variante implementada
 
-### Variante C: Detección del primer evento crítico (503)
+### 🔴 Variante C: Detección del primer evento crítico (503)
 
 El objetivo de esta variante es detectar la primera aparición del código HTTP **503 (Service Unavailable)** dentro del flujo de entrada.
 
 ---
 
-##  Lógica implementada
+## 🧠 Lógica implementada
 
 El programa funciona de la siguiente manera:
 
@@ -35,21 +53,23 @@ El programa funciona de la siguiente manera:
 
    * Se imprime un mensaje indicando el evento crítico.
    * El programa termina inmediatamente.
+
 7. Si no es 503:
 
    * Continúa procesando la entrada normalmente.
 
 ---
-##  Implementación en ARM64
+
+## 🧩 Implementación en ARM64
 
 La detección del evento crítico se implementó utilizando:
 
-* `cmp` → para comparar el valor leído con 503
-* `b.ne` → para continuar si no es igual
-* `b` → para terminar la ejecución cuando se detecta el evento
-* `write syscall` → para imprimir el mensaje en pantalla
+* `cmp` → para comparar el valor leído con 503  
+* `b.ne` → para continuar si no es igual  
+* `b` → para terminar la ejecución cuando se detecta el evento  
+* `write syscall` → para imprimir el mensaje en pantalla  
 
-Fragmento clave:
+### 🔍 Fragmento clave:
 
 ```asm
 cmp x22, #503
@@ -64,7 +84,7 @@ b salida_ok
 
 ---
 
-##  Compilación
+## 🛠️ Compilación
 
 ```bash
 make
@@ -72,7 +92,7 @@ make
 
 ---
 
-##  Ejecución
+## ▶️ Ejecución
 
 ```bash
 cat data/logs_*.txt | ./run.sh
@@ -80,7 +100,7 @@ cat data/logs_*.txt | ./run.sh
 
 ---
 
-##  Ejemplo de salida
+## 🧪 Ejemplo de salida
 
 ```
 Primer evento crítico detectado: 503
@@ -88,17 +108,16 @@ Primer evento crítico detectado: 503
 
 ---
 
-##  Evidencia de ejecución
+## 🎥 Evidencia de ejecución
 
 Grabación realizada con asciinema:
 
- (https://asciinema.org/a/M3MLNRZdYEfchq2T)
-  https://asciinema.org/a/7uGggZ24rXNjCMCr
-
+https://asciinema.org/a/M3MLNRZdYEfchq2T  
+https://asciinema.org/a/7uGggZ24rXNjCMCr  
 
 ---
 
-##  Pruebas
+## 🧪 Pruebas
 
 Se ejecutaron pruebas para validar el correcto funcionamiento del programa:
 
@@ -108,7 +127,7 @@ make test
 
 ---
 
-##  Estructura del proyecto
+## 📁 Estructura del proyecto
 
 ```
 cloud-log-analyzer/
@@ -125,16 +144,16 @@ cloud-log-analyzer/
 
 ---
 
-## Restricciones cumplidas
+## ✅ Restricciones cumplidas
 
-✔ Implementación en ARM64 Assembly
-✔ Uso exclusivo de syscalls Linux
-✔ No se utilizó C ni Python
-✔ Se respetó la variante asignada
+✔ Implementación en ARM64 Assembly  
+✔ Uso exclusivo de syscalls Linux  
+✔ No se utilizó C ni Python  
+✔ Se respetó la variante asignada  
 
 ---
 
-##  Conclusión
+## 🎯 Conclusión
 
 Esta práctica permitió comprender cómo procesar datos a bajo nivel utilizando instrucciones ARM64, implementando lógica de análisis de eventos directamente sobre registros y memoria.
 
